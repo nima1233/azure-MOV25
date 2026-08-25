@@ -4,6 +4,9 @@
 
 **Azure V34**
 
+**Repo**    
+https://github.com/nima1233/azure-MOV25/tree/main/V34
+
 ## Delmoment 2
 ### Skapa resursgrupp i Azure.
 
