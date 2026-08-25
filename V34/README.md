@@ -82,3 +82,55 @@ systemctl status nginx
 
 ### nginx är running ('q' för att komma ur status vyn)
 ![nginx status](delmoment3nginx.png)
+
+## Delmoment 4
+Navigera till nginx välkomstsida i terminalen
+
+```
+cd /var/www/html/
+```
+
+Öppna html filen i terminalen
+
+```
+sudo nano index.html 
+```
+
+Formuläret
+```
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to Novatrix</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Novatrix Kundtjanst</h1>
+<p>Kontakta var kundtjanst</p>
+
+<form>
+<label for='name'>Namn</label>
+<input type='text' id='name' name='name'><br/>
+<label for='mail'>Mail</label>
+<input type='text' id='mail' name='mail'><br/>
+<label for='msg'>Meddelande</label>
+<textarea id='msg' name='msg' rows='4' cols='50'></textarea><br/>
+<input type='submit' value='Skicka'>
+</form>
+
+</body>
+</html>
+```
+
+Spara och stäng editorn
+
+```
+CTRL + O, ENTER, CTRL X
+```
+
+### Nu går det att se innehållet på sidan genom att gå in på ```135.116.65.38```
+![sidan fungerar](delmoment4ip.png)
