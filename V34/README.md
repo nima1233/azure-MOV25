@@ -1,9 +1,10 @@
-# Novatrix kundtjänst, Azure v34
+# Novatrix kundtjänst dokumentation
 
 **Nima Kamali**
 
+**Azure V34**
 
-## Delmoment 2
+# Delmoment 2
 ### Skapa resursgrupp i Azure.
 
 Prenumeration: Azure subscription 1
@@ -25,5 +26,6 @@ Granska och skapa
 Skapa
 Hämta privat nyckel och skapa resurs
 Sparar den i ```C:\VM\Azure```
-
-## Delmoment 3
+## VM nu skapad
+![delmoment 2](delmoment2.png)
+# Delmoment 3
