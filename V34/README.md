@@ -12,7 +12,7 @@ Namn på resursgrupp: rg-novatrix-v34
 Region: Sweden Central      
 
 ### Skapa Virtuell Maskin i Azure
-(Inställningar som inte nämns är default)
+**(Inställningar som inte nämns är default)**   
 Prenumeration: Azure subscription 1     
 Resursgrupp: rg-novatrix-v34    
 Namn på virtuell dator: vm-novatrix-web-ip  
