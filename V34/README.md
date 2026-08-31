@@ -36,7 +36,7 @@ Sparar den i ```C:\VM\Azure```
 Öppna terminalen på fysiska datorn
 Navigera till mappen SSH nyckel är i
 ```
-C:\VM\Azure
+cd C:\VM\Azure
 ```
 
 Sätta behörighet på SSH nyckeln
