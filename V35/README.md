@@ -29,3 +29,6 @@ Två role assignments. Azure-Drift får contributor rollen för de sköter maski
 Skapade en managed identity som kopplades till min resursgrupp.
 
 ![delmoment4](delmoment4.png)
+
+## Delmoment 5
+### Verifiera behörigheter
