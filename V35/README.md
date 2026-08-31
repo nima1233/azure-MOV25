@@ -12,3 +12,6 @@ https://github.com/nima1233/azure-MOV25/tree/main/V35
 
 La till Anna (Drift) och Erik (Utveckling) som användare    
 ![delmoment2anv](delmoment2anv.png)
+
+La till Drift och Utveckling säkerhetsgrupp
+![delmoment2grp](delmoment2grp.png)
