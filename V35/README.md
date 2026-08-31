@@ -6,3 +6,9 @@
 
 **Repo**    
 https://github.com/nima1233/azure-MOV25/tree/main/V35
+
+## Delmoment 2
+### Skapa identiteter
+
+La till Anna (Drift) och Erik (Utveckling) som användare    
+![delmoment2anv](delmoment2anv.png)
