@@ -32,3 +32,14 @@ Skapade en managed identity som kopplades till min resursgrupp.
 
 ## Delmoment 5
 ### Verifiera behörigheter
+
+Har skapat två roller, contributor och reader. Dessa roller är det minsta möjliga åtkomsten de behöver för att kunna utföra deras jobb. Anna fick contributor då hon är med i drift och behöver kunna modifiera, starta eller stoppa virtuella maskiner. Erik fick reader då han är med i utveckling och behöver bara kunna läsa av.
+
+Check access på Anna (Drift) och Erik (Utveckling)
+
+![delmoment5a](delmoment5a.png)
+![delmoment5e](delmoment5e.png)
+
+### Erik (Utveckling) är inloggad och försöker starta VM (funkar som det ska)
+
+![delmoment5ea](delmoment5ae.png)
