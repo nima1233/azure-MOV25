@@ -21,7 +21,7 @@ Ett Vnet med 3 subnät för web, formulär, och ett privat förberett för lagri
 NSG skapad, kopplad till samma resursgrupp som Vnet.
 ![delmoment31](delmoment31.png)
 
-Öppna port 80 och 443 mot internet, och 22 för SSH admin endast mot min ip adress.
+Öppna port 80 och 443 mot internet, och endast 22 för SSH admin som enbart kan nås genom min unika ip adress
 ![delmoment32](delmoment32.png)
 
 Koppla ihop NSG med subnätet för web som jag skapade för att lägga till dessa regler
@@ -29,7 +29,7 @@ Koppla ihop NSG med subnätet för web som jag skapade för att lägga till dess
 
 Skapa nytt nätverks interface som VM ska ansluta sig till, istället för default som skapades tillsammans med VM     
 
-Ansluten till ´´´vnet-novatrix´´´ och subnätet ´´´snet-web´´´
+Ansluten till ```vnet-novatrix``` och subnätet ```snet-web```
 
 ![delmoment34](delmoment34.png)
 ![delmoment35](delmoment35.png)
@@ -50,3 +50,22 @@ VM skapad och ansluten till korrekt Vnet
 ## Delmoment 5
 ### Verifiering samt enkel skiss
 
+Min ip adress tillåts till port 22 SSH genom ```allow-ssh-admin```
+
+![port22](port22.png)
+
+Någon annan ip adress nekas till port 22
+
+![port22deny](port22deny.png)
+
+Port 80 som är öppet mot internet
+
+![port80](port80.png)
+
+Port 443 som är öppet mot internet
+
+![port443](port443.png)
+
+Denna miljö tillämpar least privilege. Ha det minsta möjliga öppet för högre säkerhet. Genom flera lager säkerhet (defense in depth) blir det svårare och ta sig hela vägen förbi alla lager.     
+
+Genom att dela in nätverket i olika delar genom virtuella nätverk och subnät kan man skydda känslig data ifall något skulle bli kapat. I denna situation kommer tex databasen inte ha någon koppling till internet utan bara internt, då är den extra skyddad mot hot från internet. 
