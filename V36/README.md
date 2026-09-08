@@ -68,4 +68,8 @@ Port 443 som är öppet mot internet
 
 Denna miljö tillämpar least privilege. Ha det minsta möjliga öppet för högre säkerhet. Genom flera lager säkerhet (defense in depth) blir det svårare och ta sig hela vägen förbi alla lager.     
 
-Genom att dela in nätverket i olika delar genom virtuella nätverk och subnät kan man skydda känslig data ifall något skulle bli kapat. I denna situation kommer tex databasen inte ha någon koppling till internet utan bara internt, då är den extra skyddad mot hot från internet. 
+Genom att dela in nätverket i olika delar genom virtuella nätverk och subnät kan man skydda känslig data ifall något skulle bli kapat. I denna situation kommer tex databasen inte ha någon koppling till internet utan bara internt, då är den extra skyddad mot hot från internet.
+
+### Enkel skiss
+
+![skiss](skiss.png)
