@@ -25,4 +25,4 @@ NSG skapad, kopplad till samma resursgrupp som Vnet.
 ![delmoment32](delmoment32.png)
 
 Koppla ihop NSG med subnätet för web som jag skapade för att lägga till dessa regler
-[delmoment33](delmoment33.png)
+![delmoment33](delmoment33.png)
