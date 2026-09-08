@@ -23,3 +23,6 @@ NSG skapad, kopplad till samma resursgrupp som Vnet.
 
 Öppna port 80 och 443 mot internet, och 22 för SSH admin endast mot min ip adress.
 ![delmoment32](delmoment32.png)
+
+Koppla ihop NSG med subnätet för web som jag skapade för att lägga till dessa regler
+[delmoment33](delmoment33.png)
