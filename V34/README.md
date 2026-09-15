@@ -18,7 +18,7 @@ Region: Sweden Central
 **(Inställningar som inte nämns är default)**   
 Prenumeration: Azure subscription 1     
 Resursgrupp: rg-novatrix-v34    
-Namn på virtuell dator: vm-novatrix-web-ip  
+Namn på virtuell dator: vm-novatrix-web     
 Region: Sweden Central  
 Image: Ubuntu Server 24.04 LTS - x64 Gen2   
 Storlek: Standard B2ats_v2  
