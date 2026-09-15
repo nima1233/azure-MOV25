@@ -42,5 +42,5 @@ Nu är formuläret och lagringen kopplade med varandra. Public access är AV så
 ![delmoment3](delmoment31.png)
 ![delmoment3](delmoment32.png)
 
-### Public access AV
+### Public access AV för mer säkerhet och kontroll över vem som har åtkomst
 ![delmoment5](delmoment5.png)
