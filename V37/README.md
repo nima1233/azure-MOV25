@@ -20,6 +20,11 @@ Här ser vi att storage container finns i rätt resursgrupp, region, samt att de
 
 ![delmoment2](delmoment2.png)
 
+## Delmoment 3
+### Inskickat ärende hamnar i blob container
+
+![delmoment32](delmoment32.png)
+
 
 ## Delmoment 4
 ### RBAC på storage
@@ -28,3 +33,14 @@ I stnovatrix storage går jag in i containers > arenden > Access Control (IAM) o
 
 ### VMen har rollen Storage blob Data Contributor i arenden
 ![delmoment4](delmoment4.png)
+
+## Delmoment 5
+### Verifiering
+
+Nu är formuläret och lagringen kopplade med varandra. Public access är AV så bild/text kan inte öppnas med enbart URL.
+
+![delmoment3](delmoment31.png)
+![delmoment3](delmoment32.png)
+
+### Public access AV
+![delmoment5](delmoment5.png)
