@@ -12,7 +12,7 @@ Skapar storage account ```stnovatrix123``` med primary service Azure blob storag
 
 ### Blob container
 
-Skapar blob container med namnet ```arenden``` och anonymous access level ska vara private för att kunna ha mer kontroll över vem som har åtkomst.
+Skapar blob container med namnet ```arenden``` och anonymous access level ska vara private för att kunna ha mer kontroll över vem som har åtkomst. Som default används nivån ```Hot``` på blob containers och det ska vi ha då åtkomst till filer här kommer att ske ofta.
 
 ### Verifiering
 
