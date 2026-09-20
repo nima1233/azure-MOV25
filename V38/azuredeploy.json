@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.0.1",
+  "contentVersion": "1.0.0.2",
 
   "parameters": {
     "name": {
@@ -41,11 +41,14 @@
       "properties": {
         "securityRules": [
           {
-            "name": "Allow-HTTP-80",
+            "name": "Allow-web",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRange": "80",
+              "destinationPortRanges": [
+                "80",
+                "443"
+              ],
               "sourceAddressPrefix": "*",
               "destinationAddressPrefix": "*",
               "access": "Allow",
