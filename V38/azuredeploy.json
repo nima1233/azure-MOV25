@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.0.0",
+  "contentVersion": "1.0.0.1",
 
   "parameters": {
     "name": {
@@ -29,7 +29,7 @@
     "vnetName": "[concat('vnet-', parameters('name'))]",
     "subnetName": "snet-web",
     "nsgName": "[concat('nsg-', parameters('name'))]",
-    "storageAccountName": "[concat('st-', parameters('name'), '123')]"
+    "storageAccountName": "[concat('st', replace(parameters('name'), '-', ''), '123')]"
   },
 
   "resources": [
