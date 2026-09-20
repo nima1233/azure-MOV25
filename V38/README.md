@@ -47,7 +47,7 @@ Azuredeploy.json ska visas med
 Kontrollera att det ser rätt ut, grön text som visar att nytt NSG sätts up, öppna port 80, 443, samt 22 endast för ipadressen som skrevs in, Vnät med subnät snet-web som ansluts till NSG, ett storage konto med namnet stnovatrixkod123, med sku standard LRS, samt att allt är i swedencentral.  
 
 5. Deploya  
-```az deployment group create -g rg-novatrix-kod --template-file azuredeploy.json --parameters adminIp=2.70.162.169```
+```az deployment group create -g rg-novatrix-kod --template-file azuredeploy.json --parameters adminIp=x.x.x.x```
 
 ## Verifiera
 ![azuredeploy1](azuredeploy.png)
