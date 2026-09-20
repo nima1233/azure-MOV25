@@ -5,6 +5,16 @@
 **Repo**
 https://github.com/nima1233/azure-MOV25/tree/main/V38
 
+## Versionshantering
+
+Här är en ändring som jag gjorde på min template. Varje ändring kan committas med ett meddelande som beskriver vad som har ändrats. Historiken gör det möjligt att se tidigare versioner och återgå till en fungerande version ifall något skulle bli fel. Samarbetar man med flera personer kan man se vem som ändrat vad och när. 
+
+### Specifik ändring
+![versionshantering](versionshantering.png)
+
+### Historik över ändringar
+![commits](commits.png)
+
 ## Dokumentation
 ### Azuredeploy
 
