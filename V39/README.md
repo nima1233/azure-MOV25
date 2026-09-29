@@ -32,7 +32,7 @@ Meddelande
 @{json(body('Get_blob_content_(V2)'))?['message']}
 ````
 
-### På mail ska bilden komma med texten. Under Advanced parameters bockas "Attachments" i.       
+### I Send en email (V2) ska bilden bifogas med texten. Under Advanced parameters bockas "Attachments" i.       
 Name - 1
 ````
 @{first(body('Filter_array'))?['Name']}
