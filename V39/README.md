@@ -53,7 +53,11 @@ Exempel på bild som sparades i samma ärende:
 
 Filter array tar den JSON fil som triggrar flödet, tar bort "arende-" och ".json" sen kontrollerar ifall bilden ````20260929T140045Z-be2318d2-Untitled.png```` startar med ````20260929T140045Z-be2318d2```` vilket den gör och det blir vår output.        
 
-Get blob content (V2) 1 som kommer efter filter array använder ````first(body('Filter_array'))?['Id']```` vilket tar den första matchningen och ger oss den bild som tillhör JSON filen. I send an email (V2) används Get blob content (V2) 1 för att attacha bilden med mailet.    
+Get blob content (V2) 1 som kommer efter filter array använder 
+````
+first(body('Filter_array'))?['Id']
+```` 
+vilket tar den första matchningen och ger oss den bild som tillhör JSON filen. I send an email (V2) används Get blob content (V2) 1 för att attacha bilden med mailet.    
 
 Initialize variable denna behövs för att kunna skicka bilden till Teams kanalen. Skapade SAS token för arende containern och använde den här. Value här är:     
 ````
