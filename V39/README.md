@@ -5,6 +5,9 @@
 **Repo**
 https://github.com/nima1233/azure-MOV25/tree/main/V39
 
+## Connectors som behövs
+![connectors](connectors.png)
+
 ## Hela flödet
 
 ![helaflödet](flodet.png)
