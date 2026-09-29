@@ -15,9 +15,9 @@ Formuläret sparar inte i en mapp utan två separate filer, en med bilaga, och d
 ````       
 Annars kan bilden triggra igång flödet först och då försöker Get blob content (V2) hämta bilden först.
 
-På vänstra sidan är det JSON delen. Get blob content (V2) hämtar all information som sparas som JSON i arenden.       
+### På vänstra sidan är det JSON delen. Get blob content (V2) hämtar all information som sparas som JSON i arenden.       
      
-I Create Item för SharePoint, Post message in a chat or channel för Teams, och Send en email (V2) används dessa för att ta ut de information vi vill ha från Get blob content       
+I Create Item för SharePoint, Post message in a chat or channel för Teams, och Send en email (V2) används dessa för att ta ut de information vi vill ha från Get blob content
 
 Namn
 ````
@@ -32,8 +32,18 @@ Meddelande
 @{json(body('Get_blob_content_(V2)'))?['message']}
 ````
 
+### På mail ska bilden komma med texten. Under Advanced parameters bockas "Attachments" i.       
+Name - 1
+````
+@{first(body('Filter_array'))?['Name']}
+````
+Content - 1
+````
+@{body('Get_blob_content_(V2)_1')}`
+````
 
-På högra sidan är det bild delen. Lists blods (V2) kollar igenom containern arenden. Filter array listar allt som finns i arende containern och filtrerar med detta     
+
+### På högra sidan är det bild delen. Lists blods (V2) kollar igenom containern arenden. Filter array listar allt som finns i arende containern och filtrerar med detta     
 
 ````
 @startsWith(@{item()?['Name']},@{replace(
