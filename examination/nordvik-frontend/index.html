@@ -349,6 +349,10 @@ async function loadReports() {
             return;
         }
 
+        data.reports.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+
         reportsList.innerHTML = '';
 
         for (const report of data.reports) {
