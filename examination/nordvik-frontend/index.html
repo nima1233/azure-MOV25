@@ -299,7 +299,7 @@ async function loadReports() {
         const account = msalInstance.getActiveAccount();
 
         if (!account) {
-            alert('Please log in first.');
+            alert('Logga in först.');
             return;
         }
 
@@ -531,18 +531,18 @@ async function saveReport(reportId, button) {
         const data = await response.json();
 
         if (!response.ok) {
-            alert(data.error || 'Kunde inte uppdatera ärende Could not update report.');
+            alert(data.error || 'Kunde inte uppdatera ärende.');
             return;
         }
 
-        alert('Ärende uppdaterad Report updated successfully.');
+        alert('Ärende uppdaterad.');
 
         // Reload reports so the updated values are displayed
         await loadReports();
 
     } catch (error) {
         console.error(error);
-        alert('Fel vid uppdatering av ärende Error updating report: ' + error.message);
+        alert('Fel vid uppdatering av ärenden: ' + error.message);
     }
 }
 
