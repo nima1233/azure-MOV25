@@ -84,6 +84,7 @@
       ],
       "properties": {
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', concat('plan-', parameters('name')))]",
+        "httpsOnly": true,
         "siteConfig": {
           "appSettings": [
             {
@@ -110,8 +111,7 @@
               "name": "APPLICATIONINSIGHTS_AUTHENTICATION_STRING",
               "value": "Authorization=AAD"
             }
-          ],
-          "httpsOnly": true
+          ]
         }
       }
     },
