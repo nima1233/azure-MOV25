@@ -1,0 +1,15 @@
+{
+  "name": "nordvik-function",
+  "version": "1.0.0",
+  "description": "Nordvik Azure Function",
+  "main": "index.js",
+  "scripts": {
+    "start": "func start"
+  },
+  "dependencies": {
+    "@azure/functions": "^4.16.5",
+    "@azure/identity": "^4.13.3",
+    "@azure/storage-blob": "^12.34.0",
+    "busboy": "^1.6.0"
+  }
+}
