@@ -273,9 +273,7 @@
             },
             "Create_item": {
               "runAfter": {
-                "Get_blob_content": [
-                  "Succeeded"
-                ]
+                "Get_blob_content": ["Succeeded"]
               },
               "type": "ApiConnection",
               "inputs": {
@@ -297,9 +295,7 @@
             },
             "Send_email": {
               "runAfter": {
-                "Create_item": [
-                  "Succeeded"
-                ]
+                "Get_blob_content": ["Succeeded"]
               },
               "type": "ApiConnection",
               "inputs": {
