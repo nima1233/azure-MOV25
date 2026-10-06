@@ -129,7 +129,7 @@
         <br><br>
 
         <button type="submit">Skicka felanmälan</button>
-        
+
         <p id="result"></p>
 
     </form>
@@ -340,12 +340,12 @@ async function loadReports() {
         const reportsList = document.getElementById('reports-list');
 
         if (!data.success) {
-            reportsList.innerHTML = '<p>Could not load reports.</p>';
+            reportsList.innerHTML = '<p>Fel vid hämtning av ärenden.</p>';
             return;
         }
 
         if (data.reports.length === 0) {
-            reportsList.innerHTML = '<p>You have no reports.</p>';
+            reportsList.innerHTML = '<p>Du har inga ärenden.</p>';
             return;
         }
 
