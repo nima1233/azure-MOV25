@@ -151,6 +151,221 @@
       "properties": {
         "stagingEnvironmentPolicy": "Enabled"
       }
+    },
+    {
+      "type": "Microsoft.Web/connections",
+      "apiVersion": "2016-06-01",
+      "name": "azureblob-1",
+      "location": "[parameters('location')]",
+      "kind": "V1",
+      "properties": {
+        "displayName": "azureblob-1",
+        "api": {
+        "id": "[subscriptionResourceId('Microsoft.Web/locations/managedApis', parameters('location'), 'azureblob')]"
+        },
+        "parameterValueSet": {
+        "name": "managedIdentityAuth",
+        "values": {}
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Web/connections",
+      "apiVersion": "2016-06-01",
+      "name": "sharepointonline",
+      "location": "[parameters('location')]",
+      "kind": "V1",
+      "properties": {
+        "displayName": "sharepointonline",
+        "api": {
+          "id": "[subscriptionResourceId('Microsoft.Web/locations/managedApis', parameters('location'), 'sharepointonline')]"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Web/connections",
+      "apiVersion": "2016-06-01",
+      "name": "office365",
+      "location": "[parameters('location')]",
+      "kind": "V1",
+      "properties": {
+        "displayName": "office365",
+        "api": {
+          "id": "[subscriptionResourceId('Microsoft.Web/locations/managedApis', parameters('location'), 'office365')]"
+        }
+      }
+    },
+      {
+        "type": "Microsoft.Logic/workflows",
+        "apiVersion": "2019-05-01",
+        "name": "[concat('logic-', parameters('name'))]",
+        "location": "[parameters('location')]",
+        "identity": {
+          "type": "SystemAssigned"
+        },
+        "dependsOn": [
+          "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+          "[resourceId('Microsoft.Storage/storageAccounts/blobServices/containers', variables('storageAccountName'), 'default', 'felanmalan')]",
+          "[resourceId('Microsoft.Web/connections', 'azureblob-1')]",
+          "[resourceId('Microsoft.Web/connections', 'sharepointonline')]",
+          "[resourceId('Microsoft.Web/connections', 'office365')]"
+        ],
+        "properties": {
+          "state": "Enabled",
+          "definition": {
+            "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+            "contentVersion": "1.0.0.0",
+            "parameters": {
+              "$connections": {
+                "defaultValue": {},
+                "type": "Object"
+              },
+              "storageAccountName": {
+                "defaultValue": "[variables('storageAccountName')]",
+                "type": "String"
+              }
+            },
+            "triggers": {
+              "When_a_blob_is_added_or_changed": {
+                "recurrence": {
+                "interval": 3,
+                "frequency": "Minute"
+              },
+              "splitOn": "@triggerBody()",
+              "type": "ApiConnection",
+              "inputs": {
+                "host": {
+                  "connection": {
+                    "name": "@parameters('$connections')['azureblob']['connectionId']"
+                  }
+                },
+                "method": "get",
+                "path": "[concat('/v2/datasets/@{encodeURIComponent(encodeURIComponent(''', variables('storageAccountName'), '''))}/triggers/batch/onupdatedfile')]",
+                "queries": {
+                  "folderId": "felanmalan",
+                  "maxFileCount": 10,
+                  "checkBothCreatedAndModifiedDateTime": false
+                }
+              },
+              "conditions": [
+                {
+                  "expression": "@endsWith(triggerBody()?['Path'], '.json')"
+                }
+              ]
+            }
+          },
+          "actions": {
+            "Get_blob_content": {
+              "runAfter": {},
+              "type": "ApiConnection",
+              "inputs": {
+                "host": {
+                  "connection": {
+                    "name": "@parameters('$connections')['azureblob']['connectionId']"
+                  }
+                },
+                "method": "get",
+                "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent(parameters('storageAccountName')))}/files/@{encodeURIComponent(encodeURIComponent(triggerBody()?['Path']))}/content",
+                "queries": {
+                  "inferContentType": true
+                }
+              }
+            },
+            "Create_item": {
+              "runAfter": {
+                "Get_blob_content": [
+                  "Succeeded"
+                ]
+              },
+              "type": "ApiConnection",
+              "inputs": {
+                "host": {
+                  "connection": {
+                    "name": "@parameters('$connections')['sharepointonline']['connectionId']"
+                  }
+                },
+                "method": "post",
+                "body": {
+                  "Title": "@json(body('Get_blob_content'))?['title']",
+                  "Kategori": {
+                    "Value": "@json(body('Get_blob_content'))?['category']"
+                  },
+                  "Beskrivning": "@json(body('Get_blob_content'))?['description']"
+                },
+                "path": "/datasets/@{encodeURIComponent(encodeURIComponent('https://coffeelatte1231outlook.sharepoint.com'))}/tables/@{encodeURIComponent(encodeURIComponent('c45d0dc5-a180-4aa9-b52b-0ff513edf152'))}/items"
+              }
+            },
+            "Send_email": {
+              "runAfter": {
+                "Create_item": [
+                  "Succeeded"
+                ]
+              },
+              "type": "ApiConnection",
+              "inputs": {
+                "host": {
+                  "connection": {
+                    "name": "@parameters('$connections')['office365']['connectionId']"
+                  }
+                },
+                "method": "post",
+                "body": {
+                  "To": "anna@coffeelatte1231outlook.onmicrosoft.com",
+                  "Subject": "Nytt ärende",
+                  "Body": "<p class=\"editor-paragraph\">Kolla igenom,<br><br>Rubrik: @{json(body('Get_blob_content'))?['title']}<br>Kategori: @{json(body('Get_blob_content'))?['category']}<br>Beskrivning : @{json(body('Get_blob_content'))?['description']}</p><br><p class=\"editor-paragraph\">ID: @{replace(replace(triggerBody()?['Name'], 'report-', ''), '.json', '')}</p>",
+                  "Importance": "Normal"
+                },
+                "path": "/v2/Mail"
+              }
+            }
+          },
+          "outputs": {}
+        },
+        "parameters": {
+          "$connections": {
+            "value": {
+              "azureblob": {
+                "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('location'), '/managedApis/azureblob')]",
+                "connectionId": "[resourceId('Microsoft.Web/connections', 'azureblob-1')]",
+                "connectionName": "azureblob-1",
+                "connectionProperties": {
+                  "authentication": {
+                    "type": "ManagedServiceIdentity"
+                  }
+                },
+                "storageAccountName": {
+                  "value": "[variables('storageAccountName')]"
+                }
+              },
+              "sharepointonline": {
+                "connectionId": "[resourceId('Microsoft.Web/connections', 'sharepointonline')]",
+                "connectionName": "sharepointonline",
+                "id": "[subscriptionResourceId('Microsoft.Web/locations/managedApis', parameters('location'), 'sharepointonline')]"
+              },
+              "office365": {
+                "connectionId": "[resourceId('Microsoft.Web/connections', 'office365')]",
+                "connectionName": "office365",
+                "id": "[subscriptionResourceId('Microsoft.Web/locations/managedApis', parameters('location'), 'office365')]"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2022-04-01",
+      "name": "[guid(resourceId('Microsoft.Storage/storageAccounts/blobServices/containers', variables('storageAccountName'), 'default', 'felanmalan'), resourceId('Microsoft.Logic/workflows', concat('logic-', parameters('name'))), 'Storage Blob Data Reader')]",
+      "scope": "[resourceId('Microsoft.Storage/storageAccounts/blobServices/containers', variables('storageAccountName'), 'default', 'felanmalan')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Logic/workflows', concat('logic-', parameters('name')))]",
+        "[resourceId('Microsoft.Storage/storageAccounts/blobServices/containers', variables('storageAccountName'), 'default', 'felanmalan')]"
+      ],
+      "properties": {
+        "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '2a2b9908-6ea1-4ae2-8e65-a410df84e7d1')]",
+        "principalId": "[reference(resourceId('Microsoft.Logic/workflows', concat('logic-', parameters('name'))), '2019-05-01', 'Full').identity.principalId]",
+        "principalType": "ServicePrincipal"
+      }
     }
   ],
 
