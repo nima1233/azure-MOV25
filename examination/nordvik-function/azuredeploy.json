@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.0.5",
+  "contentVersion": "1.0.0.8",
 
   "parameters": {
     "name": {
@@ -62,6 +62,66 @@
       ],
       "properties": {
         "publicAccess": "None"
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+      "apiVersion": "2023-05-01",
+      "name": "[concat(variables('storageAccountName'), '/default/kontrakt')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+      ],
+      "properties": {
+        "publicAccess": "None"
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+      "apiVersion": "2023-05-01",
+      "name": "[concat(variables('storageAccountName'), '/default/besiktning')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+      ],
+      "properties": {
+        "publicAccess": "None"
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts/managementPolicies",
+      "apiVersion": "2023-01-01",
+      "name": "[concat(variables('storageAccountName'), '/default')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts/blobServices/containers', variables('storageAccountName'), 'default', 'kontrakt')]",
+        "[resourceId('Microsoft.Storage/storageAccounts/blobServices/containers', variables('storageAccountName'), 'default', 'besiktning')]"
+      ],
+      "properties": {
+        "policy": {
+          "rules": [
+          {
+            "name": "ArkiveraGamlaFiler",
+            "enabled": true,
+            "type": "Lifecycle",
+            "definition": {
+              "filters": {
+                "blobTypes": [
+                  "blockBlob"
+                ],
+                "prefixMatch": [
+                  "kontrakt/",
+                  "besiktning/"
+                ]
+              },
+              "actions": {
+                "baseBlob": {
+                  "tierToCool": {
+                    "daysAfterModificationGreaterThan": 90
+                  }
+                }
+              }
+            }
+          }]
+        }
       }
     },
     {
