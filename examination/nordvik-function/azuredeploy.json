@@ -366,7 +366,7 @@
                 },
                 "method": "post",
                 "body": {
-                  "To": "anna@coffeelatte1231outlook.onmicrosoft.com",
+                  "To": "forvaltare@coffeelatte1231outlook.onmicrosoft.com",
                   "Subject": "Nytt ärende",
                   "Body": "<p class=\"editor-paragraph\">Kolla igenom,<br><br>Rubrik: @{json(body('Get_blob_content'))?['title']}<br>Kategori: @{json(body('Get_blob_content'))?['category']}<br>Beskrivning : @{json(body('Get_blob_content'))?['description']}</p><br><p class=\"editor-paragraph\">ID: @{replace(replace(triggerBody()?['Name'], 'report-', ''), '.json', '')}</p>",
                   "Importance": "Normal"
