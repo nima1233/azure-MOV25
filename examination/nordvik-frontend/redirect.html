@@ -7,10 +7,13 @@
     <script src="https://cdn.jsdelivr.net/npm/@azure/msal-browser@4.27.0/lib/msal-browser.min.js"></script>
 
     <script>
+        const CLIENT_ID = "19641409-fcfe-4701-a5f2-257ffcffbdfa";
+        const TENANT_ID = "94f76439-7ed1-4b30-9de4-84beaf39b695";
+
         const msalInstance = new msal.PublicClientApplication({
             auth: {
-                clientId: "19641409-fcfe-4701-a5f2-257ffcffbdfa",
-                authority: "https://login.microsoftonline.com/94f76439-7ed1-4b30-9de4-84beaf39b695",
+                clientId: CLIENT_ID,
+                authority: `https://login.microsoftonline.com/${TENANT_ID}`,
                 redirectUri: window.location.href
             }
         });
