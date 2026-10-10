@@ -3,6 +3,9 @@ const { DefaultAzureCredential } = require('@azure/identity');
 const { BlobServiceClient } = require('@azure/storage-blob');
 const { randomUUID } = require('crypto');
 
+const storageAccountName = 'sttest841568n';
+const containerName = 'felanmalan';
+
 function getUserInfo(request) {
     const userId = request.headers.get('x-ms-client-principal-id');
     const principalHeader = request.headers.get('x-ms-client-principal');
@@ -29,9 +32,6 @@ function getUserInfo(request) {
 }
 
 const credential = new DefaultAzureCredential();
-
-const storageAccountName = 'sttest841568n';
-const containerName = 'felanmalan';
 
 app.http('report', {
     methods: ['POST'],
