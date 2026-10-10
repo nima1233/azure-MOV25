@@ -326,7 +326,7 @@ async function loadReports() {
         }
 
         const response = await fetch(
-            'https://func-test841568.azurewebsites.net/api/report/api/reports',
+            'https://func-test841568.azurewebsites.net/api/reports',
             {
                 method: 'GET',
                 headers: {
@@ -384,7 +384,7 @@ async function loadReports() {
 
             try {
                 const imageResponse = await fetch(
-                    `https://func-test841568.azurewebsites.net/api/report/api/report/${report.id}/image`,
+                    `https://func-test841568.azurewebsites.net/api/report/${report.id}/image`,
                     {
                         method: 'GET',
                         headers: {
@@ -513,7 +513,7 @@ async function saveReport(reportId, button) {
             document.getElementById(`edit-category-${reportId}`).value;
 
         const response = await fetch(
-            `https://func-test841568.azurewebsites.net/api/report/api/report/${reportId}`,
+            `https://func-test841568.azurewebsites.net/api/report/${reportId}`,
             {
                 method: 'PUT',
                 headers: {
