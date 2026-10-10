@@ -213,6 +213,23 @@
       }
     },
     {
+      "type": "Microsoft.Web/sites/config",
+      "apiVersion": "2022-09-01",
+      "name": "[format('func-{0}/web', parameters('name'))]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', format('func-{0}', parameters('name')))]",
+        "[resourceId('Microsoft.Web/staticSites', format('swa-{0}', parameters('name')))]"
+      ],
+        "properties": {
+          "cors": {
+            "allowedOrigins": [
+              "[format('https://{0}', reference(resourceId('Microsoft.Web/staticSites', format('swa-{0}', parameters('name'))), '2022-09-01').defaultHostname)]"
+            ],
+            "supportCredentials": false
+          }
+        }
+    },
+    {
       "type": "Microsoft.Web/connections",
       "apiVersion": "2016-06-01",
       "name": "azureblob-1",
