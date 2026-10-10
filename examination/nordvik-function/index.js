@@ -31,7 +31,7 @@ function getUserInfo(request) {
 
 const credential = new DefaultAzureCredential();
 
-const storageAccountName = 'stnordviknimkam01';
+const storageAccountName = 'sttest841568n';
 const containerName = 'felanmalan';
 
 app.http('report', {

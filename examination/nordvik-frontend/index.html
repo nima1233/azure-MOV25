@@ -150,7 +150,7 @@
 
     const msalConfig = {
     auth: {
-        clientId: "d36c5241-77bb-4278-a4ce-7386d1616768",
+        clientId: "19641409-fcfe-4701-a5f2-257ffcffbdfa",
         authority: "https://login.microsoftonline.com/94f76439-7ed1-4b30-9de4-84beaf39b695",
         redirectUri: window.location.origin + "/redirect.html"
         }
@@ -178,7 +178,7 @@
         try {
 
             const loginResponse = await msalInstance.loginPopup({
-                scopes: ["api://d36c5241-77bb-4278-a4ce-7386d1616768/access_as_user"],
+                scopes: ["api://19641409-fcfe-4701-a5f2-257ffcffbdfa/access_as_user"],
                 prompt: "select_account"
             });
 
@@ -187,7 +187,7 @@
             msalInstance.setActiveAccount(account);
 
             const tokenResponse = await msalInstance.acquireTokenSilent({
-                scopes: ["api://d36c5241-77bb-4278-a4ce-7386d1616768/access_as_user"],
+                scopes: ["api://19641409-fcfe-4701-a5f2-257ffcffbdfa/access_as_user"],
                 account: account
             });
 
@@ -245,7 +245,7 @@
         try {
 
             const response = await fetch(
-                'https://func-nordvik-bgf3feg9edhrfman.swedencentral-01.azurewebsites.net/api/report',
+                'func-test841568.azurewebsites.net/api/report',
                 {
                     method: 'POST',
                     headers: {
