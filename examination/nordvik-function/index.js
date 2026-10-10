@@ -5,8 +5,7 @@ const { randomUUID } = require('crypto');
 
 function getUserInfo(request) {
     const userId = request.headers.get('x-ms-client-principal-id');
-    const principalHeader =
-        request.headers.get('x-ms-client-principal');
+    const principalHeader = request.headers.get('x-ms-client-principal');
 
     if (!userId || !principalHeader) {
         return null;
@@ -41,10 +40,10 @@ app.http('report', {
     handler: async (request, context) => {
     try {
         const formData = await request.formData();
-
+        const principalHeader = request.headers.get('x-ms-client-principal');
         const userId = request.headers.get('x-ms-client-principal-id');
 
-        if (!userId) {
+        if (!userId || !principalHeader) {
             return {
                 status: 401,
                 jsonBody: {
@@ -54,6 +53,36 @@ app.http('report', {
             };
         }
 
+        let principal;
+
+        try {
+            principal = JSON.parse(
+                Buffer.from(principalHeader, 'base64').toString('utf8')
+            );
+        } catch {
+            return {
+                status: 401,
+                jsonBody: {
+                    success: false,
+                    error: 'Invalid user information'
+                }
+            };
+        }
+
+        const roles = principal.claims
+            .filter(claim => claim.typ === 'roles')
+            .map(claim => claim.val);
+
+        if (!roles.includes('Tenant') && !roles.includes('Manager')) {
+            return {
+                status: 403,
+                jsonBody: {
+                    success: false,
+                    error: 'Du har inte behörighet'
+                }
+            };
+        }
+        
             const title = formData.get('title');
             const description = formData.get('description');
             const category = formData.get('category');
