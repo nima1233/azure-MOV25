@@ -1,11 +1,11 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.0.8",
+  "contentVersion": "2.0.0.0",
 
   "parameters": {
     "name": {
       "type": "string",
-      "defaultValue": "test841568",
+      "defaultValue": "Nordvik",
       "metadata": {
         "description": "Base name used for the Azure resources."
       }
@@ -20,7 +20,7 @@
   },
 
   "variables": {
-    "storageAccountName": "[concat('st', replace(parameters('name'), '-', ''), 'n')]"
+    "storageAccountName": "[concat('st', replace(parameters('name'), '-', ''), 'nimkam01')]"
   },
 
   "resources": [
@@ -36,6 +36,9 @@
       },
       "properties": {
         "reserved": false
+      },
+      "tags": {
+        "department": "ekonomi"
       }
     },
     {
@@ -51,6 +54,9 @@
         "accessTier": "Hot",
         "allowBlobPublicAccess": false,
         "minimumTlsVersion": "TLS1_2"
+      },
+      "tags": {
+        "department": "ekonomi"
       }
     },
     {
@@ -131,7 +137,8 @@
       "location": "[parameters('location')]",
       "kind": "functionapp",
       "tags": {
-      "hidden-link:/app-insights-resource-id": "[resourceId('Microsoft.Insights/components', concat('appi-', parameters('name')))]"
+      "hidden-link:/app-insights-resource-id": "[resourceId('Microsoft.Insights/components', concat('appi-', parameters('name')))]",
+      "department": "ekonomi"
       },
       "identity": {
         "type": "SystemAssigned"
@@ -198,6 +205,9 @@
       "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')]",
       "principalId": "[reference(resourceId('Microsoft.Web/sites', concat('func-', parameters('name'))), '2024-04-01', 'Full').identity.principalId]",
       "principalType": "ServicePrincipal"
+      },
+      "tags": {
+        "department": "ekonomi"
       }
     },
     {
@@ -227,7 +237,10 @@
             ],
             "supportCredentials": false
           }
-        }
+        },
+        "tags": {
+          "department": "ekonomi"
+      }
     },
     {
       "type": "Microsoft.Web/connections",
@@ -423,6 +436,9 @@
             }
           }
         }
+      },
+      "tags": {
+        "department": "ekonomi"
       }
     },
     {

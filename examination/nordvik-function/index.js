@@ -3,7 +3,7 @@ const { DefaultAzureCredential } = require('@azure/identity');
 const { BlobServiceClient } = require('@azure/storage-blob');
 const { randomUUID } = require('crypto');
 
-const storageAccountName = 'sttest841568n';
+const storageAccountName = 'stnordviknimkam01';
 const containerName = 'felanmalan';
 
 function getUserInfo(request) {
