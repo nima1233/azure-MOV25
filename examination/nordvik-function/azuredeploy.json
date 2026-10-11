@@ -5,7 +5,7 @@
   "parameters": {
     "name": {
       "type": "string",
-      "defaultValue": "Nordvik",
+      "defaultValue": "nordvik",
       "metadata": {
         "description": "Base name used for the Azure resources."
       }
