@@ -11,12 +11,12 @@ Nordviks Portal är byggd med Azure tjänster som håller i infrastrukturen. Lö
 ### COMPUTE
 Azure Functions används för portalens backend och API. Funktionen hanterar exempelvis felanmälningar som skickas in av hyresgäster, tar emot information och bilder samt hämtar och uppdaterar befintliga ärenden. 
 
-Azure Functions kör kod vid inkommande HTTP anrop ochh kan skalas efter behov. Istället för att själv administrera en virtuell server ansvarar Azure för den underliggande infrastrukturen. Function App körs på en Windows Consumption plan, vilket innebär att beräkninskapaciteten hanteras av Azure och att kostnaden huvudsakligen baseras på användningen.
+Azure Functions kör kod vid inkommande HTTP anrop och kan skalas efter behov. Istället för att själv administrera en virtuell server ansvarar Azure för den underliggande infrastrukturen. Function App körs på en Windows Consumption plan, vilket innebär att "datorn" hanteras av Azure och att kostnaden huvudsakligen baseras på användningen. Microsoft Azure har en 99.5% uptime SLA (Service Level Agreement) på serverless Consumption plan som jag valt.
 
 ### NÄTVERK OCH ÅTKOMST
 Azure Static Web Apps används för att publicera portalens frontend, det vill säga webbgränssnittet som hyresgäster och personal använder. Frontend kommunicerar med backend via Azure Functions API.
 
-Lösningen använder flera säkerhetslager. Microsoft Entra ID används för autentisering, medan rollbaserad behörighet begränsar vilka funktioner olika använder får använda. Azure Functions hanterar åtkomsten till felanmälningar och Blob Storage är konfigurerad för att inte tillåta anonym åtkomst. Functionens hanterade identitet används för åtkomst till lagringen utan att lagringsnycklar behöver lagras i koden. Användarna loggar in med sina konto och tilldelas rollerna Tenant, Manager, eller Finance. Backend kontrollerar användarens behörighet innan en åtgärd tillåts. Det innebär att en hyresgäst endast ska kunna se sina egna felanmälningar, medan en förvaltare kan hantera alla ärenden och ekonomi bara har läsbehörighet.
+Lösningen använder flera säkerhetslager. Microsoft Entra ID används för autentisering, medan rollbaserad behörighet begränsar vilka funktioner olika använder får använda. Azure Functions hanterar åtkomsten till felanmälningar och Blob Storage är konfigurerad för att inte tillåta anonym åtkomst. Functionens hanterade identitet används för åtkomst till lagringen utan att lagringsnycklar behöver lagras i koden. Användarna loggar in med sina konton och tilldelas rollerna Tenant, Manager, eller Finance. Backend kontrollerar användarens behörighet innan en åtgärd tillåts. Det innebär att en hyresgäst endast ska kunna se sina egna felanmälningar, medan en förvaltare kan hantera alla ärenden och ekonomi bara har läsbehörighet.
 
 Storage kontots publika blobåtkomst är avstängd. Detta förhindrar att filer läses anonymt. RBAC har varit i fokus under planeringen och lösnigen för Nordviks Portal. Portalen (function app) har en Managed identity med rollen Storage Blob data-contributor endast på containern felanmalan så att den kan lagra, läsa, samt modifera filer. 
 
@@ -54,7 +54,7 @@ Serverless minskar administrationsbehovet, ger möjlighet till automatisk skalni
 
 Static Web Apps för frontend, Azure Functions för backend, och Blob Storage för text och bilder. Tre delar som tillsammans skapar Nordvik Portal.
 
-Sammanfattningsvis har serverless valts eftersom det ger en flexibel och skalningsbar lösning som passar en portal för felanmälningar. 
+Sammanfattningsvis har serverless valts eftersom det ger en prisvärd och skalningsbar lösning med high availability som passar en portal för felanmälningar.
 
 
 ## PLANERING
@@ -87,12 +87,12 @@ Resurser som den skapar:
 
 4. App Service-plan (plan-nordvik)
 
-5. Storage account (stnordviknimkam01) - Här skapas det också upp containrarna:
-azure-webjobs-hosts, skapas automatiskt med Azure functions inget man behöver bry sig om
-azure-webjobs-secrets, skapas automatiskt med Azure functions, endast admins ska ha åtkomst till denna
-besiktning, filer som lagras här flyttas till cold storage efter 3 månader
-kontrakt, filer som lagras här flyttas till cold storage efter 3 månader
-felanmalan, felanmälan kommer in hit, .json fil med texten samt en bild
+5. Storage account (stnordviknimkam01) - Här skapas det också upp containrarna:     
+azure-webjobs-hosts, skapas automatiskt med Azure functions inget man behöver bry sig om    
+azure-webjobs-secrets, skapas automatiskt med Azure functions, endast admins ska ha åtkomst till denna  
+besiktning, filer som lagras här flyttas till cold storage efter 3 månader  
+kontrakt, filer som lagras här flyttas till cold storage efter 3 månader    
+felanmalan, felanmälan kommer in hit, .json fil med texten samt en bild 
 
 6. Static Web App (swa-nordvik) 
 
